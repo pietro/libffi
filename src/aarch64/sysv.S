@@ -681,9 +681,13 @@ CNAME(ffi_go_closure_SYSV):
 #endif /* FFI_CLOSURES */
 #endif /* __arm64__ */
 
-#if defined __ELF__ && defined __linux__
+#if defined __ELF__
+  /* Mark stack non-executable. TODO: what other ELF OSes support this? */
+  #if defined(__linux__) || defined(__FreeBSD__)
 	.section .note.GNU-stack,"",%progbits
+  #endif
 
+  /* BTI and PAC. BTI is always marked as supported. */
 	.pushsection .note.gnu.property, "a";
 	.balign 8;
 	.long 4;
@@ -696,4 +700,3 @@ CNAME(ffi_go_closure_SYSV):
 	.long 0;
 	.popsection;
 #endif
-

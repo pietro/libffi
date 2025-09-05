@@ -192,9 +192,9 @@ case "$TARGET" in
     ;;
 esac
 
-AC_CACHE_CHECK([whether compiler supports pointer authentication],
-   libffi_cv_as_ptrauth, [
-   libffi_cv_as_ptrauth=unknown
+AC_CACHE_CHECK([whether compiler supports ARM64E pointer authentication],
+   libffi_cv_as_arm64e_ptrauth, [
+   libffi_cv_as_arm64e_ptrauth=unknown
    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
 #ifdef __clang__
 # if __has_feature(ptrauth_calls)
@@ -203,13 +203,13 @@ AC_CACHE_CHECK([whether compiler supports pointer authentication],
 #endif
 
 #ifndef HAVE_ARM64E_PTRAUTH
-# error Pointer authentication not supported
+# error ARM64E pointer authentication not supported
 #endif
-		   ]])],[libffi_cv_as_ptrauth=yes],[libffi_cv_as_ptrauth=no])
+		   ]])],[libffi_cv_as_arm64e_ptrauth=yes],[libffi_cv_as_arm64e_ptrauth=no])
 ])
-if test "x$libffi_cv_as_ptrauth" = xyes; then
+if test "x$libffi_cv_as_arm64e_ptrauth" = xyes; then
     AC_DEFINE(HAVE_ARM64E_PTRAUTH, 1,
-	      [Define if your compiler supports pointer authentication.])
+	      [Define if your compiler supports ARM64E pointer authentication.])
 fi
 
 # On PaX enable kernels that have MPROTECT enable we can't use PROT_EXEC;

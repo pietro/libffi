@@ -49,7 +49,6 @@
 # define cfi_personality(enc, exp)	.cfi_personality enc, exp
 # define cfi_lsda(enc, exp)		.cfi_lsda enc, exp
 # define cfi_escape(...)		.cfi_escape __VA_ARGS__
-# define cfi_window_save		.cfi_window_save
 
 #else
 
@@ -72,7 +71,6 @@
 # define cfi_personality(enc, exp)
 # define cfi_lsda(enc, exp)
 # define cfi_escape(...)
-# define cfi_window_save
 
 #endif /* HAVE_AS_CFI_PSEUDO_OP */
 #endif /* FFI_CFI_H */
