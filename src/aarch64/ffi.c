@@ -922,7 +922,11 @@ ffi_prep_closure_loc (ffi_closure *closure,
 #  ifdef HAVE_ARM64E_PTRAUTH
   codeloc = ptrauth_auth_data(codeloc, ptrauth_key_function_pointer, 0);
 #  endif
+#  ifdef FFI_TRAMPOLINE_WHOLE_DYLIB
+  void **config = (void **)((uint8_t *)codeloc - 2*PAGE_MAX_SIZE);
+#  else
   void **config = (void **)((uint8_t *)codeloc - PAGE_MAX_SIZE);
+#  endif
   config[0] = closure;
   config[1] = start;
 # endif

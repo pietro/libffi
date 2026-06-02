@@ -611,9 +611,13 @@ CNAME(trampoline_code_table):
     .align PAGE_MAX_SHIFT
 CNAME(ffi_closure_trampoline_table_page):
     .rept PAGE_MAX_SIZE / FFI_TRAMPOLINE_SIZE
+#ifdef FFI_TRAMPOLINE_WHOLE_DYLIB
+    adr x16, -(2 * PAGE_MAX_SIZE)
+#else
     adr x16, -PAGE_MAX_SIZE
+#endif
     ldp x17, x16, [x16]
-    br x16
+    BRANCH_TO_REG x16
 	nop		/* each entry in the trampoline config page is 2*sizeof(void*) so the trampoline itself cannot be smaller than 16 bytes */
     .endr
 
